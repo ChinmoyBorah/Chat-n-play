@@ -1,7 +1,7 @@
 import js from '@eslint/js'
 import globals from 'globals'
-
 import { defineConfig, globalIgnores } from 'eslint/config'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -20,7 +20,13 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      ...eslintConfigPrettier.rules,
+      'no-unused-vars': ['error', { 
+        varsIgnorePattern: '^[A-Z_]|^_', 
+        argsIgnorePattern: '^_',
+        ignoreRestSiblings: true
+      }],
+      'indent': ['error', 2],
     },
   },
 ])
